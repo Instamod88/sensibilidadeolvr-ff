@@ -1,0 +1,129 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1a1a1a, #000);
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: #fff;
+}
+
+/* Raios */
+.lightning {
+  position: absolute;
+  width: 2px;
+  height: 120%;
+  background: linear-gradient(to bottom, transparent, #00eaff, transparent);
+  opacity: 0.25;
+  animation: lightningMove 4s infinite;
+}
+
+.l2 {
+  left: 30%;
+  animation-delay: 1s;
+  opacity: 0.15;
+}
+
+.l3 {
+  left: 70%;
+  animation-delay: 2s;
+  opacity: 0.2;
+}
+
+@keyframes lightningMove {
+  0% { top: -120%; }
+  100% { top: 120%; }
+}
+
+/* Card principal */
+.card {
+  position: relative;
+  z-index: 10;
+  width: 440px;
+  padding: 32px;
+  border-radius: 28px;
+  background: rgba(20,20,20,0.75);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 60px rgba(0,0,0,0.8);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+h1 {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 6px;
+  color: #00eaff;
+}
+
+.sub {
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-top: 14px;
+  font-weight: bold;
+}
+
+select {
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 14px;
+  border: none;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+}
+
+button {
+  width: 100%;
+  margin-top: 22px;
+  padding: 18px;
+  font-size: 18px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  background: linear-gradient(45deg, #00eaff, #0066ff);
+  color: #000;
+  box-shadow: 0 0 25px rgba(0,234,255,0.6);
+}
+
+button:hover {
+  transform: scale(1.03);
+}
+
+#resultado {
+  margin-top: 22px;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.social {
+  margin-top: 22px;
+  text-align: center;
+}
+
+.social a {
+  display: block;
+  margin-top: 8px;
+  color: #00eaff;
+  text-decoration: none;
+  font-weight: bold;
+}
