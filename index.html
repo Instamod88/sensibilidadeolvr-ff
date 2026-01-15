@@ -103,66 +103,59 @@ const celulares = {
   ]
 };
 
-// ===================================
+// ================================
+// ELEMENTOS
+// ================================
+const brand = document.getElementById("brand");
+const model = document.getElementById("model");
+
+// ================================
+// POPULA SELECT
+// ================================
+Object.keys(celulares).forEach(b => {
+  brand.innerHTML += `<option value="${b}">${b}</option>`;
+});
+
+brand.addEventListener("change", () => {
+  model.innerHTML = `<option value="">Selecione o modelo</option>`;
+  celulares[brand.value].forEach(m => {
+    model.innerHTML += `<option value="${m}">${m}</option>`;
+  });
+});
+
+// ================================
 // FUNÇÕES
-// ===================================
-function hash(texto) {
+// ================================
+function hash(txt) {
   let h = 0;
-  for (let i = 0; i < texto.length; i++) {
-    h = (h << 5) - h + texto.charCodeAt(i);
+  for (let i = 0; i < txt.length; i++) {
+    h = (h << 5) - h + txt.charCodeAt(i);
     h |= 0;
   }
   return Math.abs(h);
 }
 
-function gerarSensibilidade(modelo) {
-  return 160 + (hash(modelo) % 25);
-}
+function gerar(tipo) {
+  if (!brand.value || !model.value) return;
 
-function gerarDPI(modelo, marca) {
-  if (marca === "Apple") return null;
-  return 400 + (hash(modelo) % 80);
-}
+  const base = 160 + (hash(model.value) % 25);
+  const bonus = tipo === "vip" ? 8 : 0;
+  const sens = base + bonus;
 
-// ===================================
-// INTERFACE
-// ===================================
-const brand = document.getElementById("brand");
-const model = document.getElementById("model");
-const resultado = document.getElementById("resultado");
+  const dpi = brand.value === "Apple" ? null : 400 + (hash(model.value) % 80);
 
-for (let b in celulares) {
-  brand.innerHTML += `<option value="${b}">${b}</option>`;
-}
-
-brand.onchange = () => {
-  model.innerHTML = "<option value=''>Selecione o modelo</option>";
-  celulares[brand.value].forEach(m => {
-    model.innerHTML += `<option value="${m}">${m}</option>`;
-  });
-};
-
-function gerar() {
-  if (!brand.value || !model.value) {
-    resultado.innerHTML = "⚠️ Selecione marca e modelo.";
-    return;
-  }
-
-  const sens = gerarSensibilidade(model.value);
-  const dpi = gerarDPI(model.value, brand.value);
-
-  resultado.innerHTML = `
-    <b>🎯 CONFIGURAÇÃO IDEAL</b><br><br>
-    Geral: ${sens}<br>
-    Red Dot: ${sens - 8}<br>
-    Mira 2x: ${sens - 22}<br>
-    Mira 4x: ${sens - 38}<br>
-    AWM: ${sens - 55}<br><br>
-    ${dpi ? `📐 DPI recomendada: ${dpi}` : "🍎 iPhone não utiliza DPI"}<br><br>
-    📱 <b>${model.value}</b>
+  const html = `
+    🎯 Geral: ${sens}<br>
+    🔴 Red Dot: ${sens - 8}<br>
+    🔍 2x: ${sens - 20}<br>
+    🔭 4x: ${sens - 35}<br>
+    🎯 AWM: ${sens - 55}<br><br>
+    ${dpi ? `📐 DPI: ${dpi}` : "🍎 iPhone não usa DPI"}
   `;
-}
-</script>
 
-</body>
-</html>
+  if (tipo === "normal") {
+    document.getElementById("resultadoNormal").innerHTML = html;
+  } else {
+    document.getElementById("resultadoVip").innerHTML = html;
+  }
+}
