@@ -161,4 +161,17 @@ function gerar() {
     ${dpi ? `📐 DPI recomendada: ${dpi}` : "🍎 iPhone não utiliza DPI"}<br><br>
     📱 <b>${model.value}</b>
   `;
-}
+}const search = document.getElementById("search");
+
+search.addEventListener("input", () => {
+  const termo = search.value.toLowerCase();
+  model.innerHTML = "<option value=''>Selecione o modelo</option>";
+
+  if (!brand.value) return;
+
+  celulares[brand.value]
+    .filter(m => m.toLowerCase().includes(termo))
+    .forEach(m => {
+      model.innerHTML += `<option value="${m}">${m}</option>`;
+    });
+});
