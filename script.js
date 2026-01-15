@@ -23,7 +23,7 @@ const celulares = {
 
   Samsung: [
     "Galaxy J1","Galaxy J2","Galaxy J3","Galaxy J4","Galaxy J5","Galaxy J6","Galaxy J7","Galaxy J8",
-    "Galaxy A01","Galaxy A02","Galaxy A03","Galaxy A05",
+    "Galaxy A01","Galaxy A02","Galaxy A03","Galaxy A05","Galaxy A06"
     "Galaxy A10","Galaxy A11","Galaxy A12","Galaxy A13","Galaxy A14","Galaxy A15",
     "Galaxy A20","Galaxy A21","Galaxy A22","Galaxy A23","Galaxy A24","Galaxy A25",
     "Galaxy A30","Galaxy A31","Galaxy A32","Galaxy A33","Galaxy A34","Galaxy A35",
