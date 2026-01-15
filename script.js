@@ -1,5 +1,5 @@
 // ===================================================
-// BASE GIGANTE PROFISSIONAL DE DISPOSITIVOS
+// BASE COMPLETA E GIGANTE DE DISPOSITIVOS
 // ===================================================
 
 const celulares = {
@@ -130,45 +130,62 @@ const celulares = {
 };
 
 // ===================================================
-// LÓGICA (SEM BUG)
+// INTERFACE ESTÁVEL (SEM BUG iOS)
 // ===================================================
 
 const brand = document.getElementById("brand");
 const model = document.getElementById("model");
-const resultado = document.getElementById("resultado");
 const search = document.getElementById("search");
+const resultado = document.getElementById("resultado");
 
-for (let b in celulares) {
-  brand.innerHTML += `<option value="${b}">${b}</option>`;
+// marcas
+Object.keys(celulares).forEach(m => {
+  const o = document.createElement("option");
+  o.value = m;
+  o.textContent = m;
+  brand.appendChild(o);
+});
+
+function atualizarModelos(lista) {
+  model.innerHTML = "";
+  const base = document.createElement("option");
+  base.value = "";
+  base.textContent = "Selecione o modelo";
+  model.appendChild(base);
+
+  lista.forEach(nome => {
+    const o = document.createElement("option");
+    o.value = nome;
+    o.textContent = nome;
+    model.appendChild(o);
+  });
 }
 
-brand.onchange = () => {
-  model.innerHTML = "<option value=''>Selecione o modelo</option>";
+brand.addEventListener("change", () => {
   search.value = "";
-
-  celulares[brand.value].forEach(m => {
-    model.innerHTML += `<option value="${m}">${m}</option>`;
-  });
-};
+  if (!brand.value) {
+    atualizarModelos([]);
+    return;
+  }
+  atualizarModelos(celulares[brand.value]);
+});
 
 search.addEventListener("input", () => {
-  const texto = search.value.toLowerCase();
-  model.innerHTML = "<option value=''>Selecione o modelo</option>";
-
   if (!brand.value) return;
-
-  celulares[brand.value].forEach(m => {
-    if (m.toLowerCase().includes(texto)) {
-      model.innerHTML += `<option value="${m}">${m}</option>`;
-    }
-  });
+  const txt = search.value.toLowerCase();
+  atualizarModelos(
+    celulares[brand.value].filter(m => m.toLowerCase().includes(txt))
+  );
 });
+
+// ===================================================
+// GERAÇÃO
+// ===================================================
 
 function hash(t) {
   let h = 0;
   for (let i = 0; i < t.length; i++) {
     h = (h << 5) - h + t.charCodeAt(i);
-    h |= 0;
   }
   return Math.abs(h);
 }
@@ -183,7 +200,7 @@ function gerar() {
   const dpi = brand.value === "Apple" ? null : 420 + (hash(model.value) % 80);
 
   resultado.innerHTML = `
-    🎯 <b>${model.value}</b><br><br>
+    <b>${model.value}</b><br><br>
     Geral: ${base}<br>
     Red Dot: ${base - 8}<br>
     Mira 2x: ${base - 20}<br>
