@@ -1,0 +1,46 @@
+body {
+  background: black;
+  color: white;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.box {
+  width: 320px;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 25px;
+}
+
+.btn {
+  display: block;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.insta {
+  background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+  color: white;
+}
+
+.tiktok {
+  background: #111;
+  border: 1px solid white;
+  color: white;
+}
+
+.back {
+  display: block;
+  margin-top: 25px;
+  color: #aaa;
+  text-decoration: none;
+  font-size: 14px;
+}
