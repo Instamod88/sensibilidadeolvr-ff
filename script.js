@@ -23,7 +23,7 @@ const celulares = {
 
   Samsung: [
     "Galaxy J1","Galaxy J2","Galaxy J3","Galaxy J4","Galaxy J5","Galaxy J6","Galaxy J7","Galaxy J8",
-    "Galaxy A01","Galaxy A02","Galaxy A03","Galaxy A05","Galaxy A06"
+    "Galaxy A01","Galaxy A02","Galaxy A03","Galaxy A05","Galaxy A06",
     "Galaxy A10","Galaxy A11","Galaxy A12","Galaxy A13","Galaxy A14","Galaxy A15",
     "Galaxy A20","Galaxy A21","Galaxy A22","Galaxy A23","Galaxy A24","Galaxy A25",
     "Galaxy A30","Galaxy A31","Galaxy A32","Galaxy A33","Galaxy A34","Galaxy A35",
@@ -34,38 +34,39 @@ const celulares = {
 
   Xiaomi: [
     "Xiaomi Mi 9","Xiaomi Mi 10","Xiaomi Mi 11","Xiaomi 12","Xiaomi 13","Xiaomi 14","Xiaomi 15",
-    "Redmi 7","Redmi 8","Redmi 9","Redmi 10","Redmi 12",
-    "Redmi Note 8","Redmi Note 9","Redmi Note 10","Redmi Note 11","Redmi Note 12",
+    "Redmi 7","Redmi 8","Redmi 9","Redmi 10","Redmi 12","Redmi 13","Redmi 13C",
+    "Redmi Note 8","Redmi Note 9","Redmi Note 10","Redmi Note 11","Redmi Note 12","Redmi Note 13",
     "Poco X3","Poco X4","Poco X5",
-    "Poco F3","Poco F4","Poco F5"
+    "Poco F3","Poco F4","Poco F5","Poco F6"
   ],
 
   Motorola: [
-    "Moto E6","Moto E7","Moto E13","Moto E22",
-    "Moto G7","Moto G8","Moto G9","Moto G10","Moto G20","Moto G30","Moto G40","Moto G50","Moto G60",
+    "Moto E6","Moto E7","Moto E13","Moto E22","Moto E32","Moto E40",
+    "Moto G7","Moto G8","Moto G9","Moto G10","Moto G20","Moto G30","Moto G40","Moto G50","Moto G60","Moto G73","Moto G84",
     "Motorola One","Motorola One Vision","Motorola One Action",
-    "Edge 20","Edge 30","Edge 40"
+    "Edge 20","Edge 30","Edge 40","Edge 50"
   ],
 
   Vivo: [
-    "Vivo Y11","Vivo Y12","Vivo Y20","Vivo Y21","Vivo Y30","Vivo Y35",
-    "Vivo V25","Vivo V27","Vivo V29"
+    "Vivo Y11","Vivo Y12","Vivo Y16","Vivo Y20","Vivo Y21","Vivo Y22","Vivo Y30","Vivo Y35",
+    "Vivo V25","Vivo V27","Vivo V29","Vivo V30"
   ],
 
   Oppo: [
-    "Oppo A12","Oppo A15","Oppo A31","Oppo A54","Oppo A78",
-    "Oppo Reno 5","Oppo Reno 6","Oppo Reno 8"
+    "Oppo A5 4G","Oppo A12","Oppo A15","Oppo A17","Oppo A31","Oppo A38","Oppo A54","Oppo A78",
+    "Oppo Reno 5","Oppo Reno 6","Oppo Reno 8","Oppo Reno 10"
   ],
 
   Realme: [
     "Realme C11","Realme C25","Realme C35","Realme C55",
-    "Realme 8","Realme 9","Realme 10",
-    "Realme GT","Realme GT Neo","Realme GT Neo 2","Realme GT Neo 3"
+    "Realme 8","Realme 9","Realme 10","Realme 11","Realme 12",
+    "Realme 60x",
+    "Realme GT","Realme GT Neo","Realme GT Neo 2","Realme GT Neo 3","Realme GT Neo 5"
   ],
 
   Asus: [
     "Asus Zenfone 5","Zenfone 6","Zenfone 7","Zenfone 8","Zenfone 9","Zenfone 10",
-    "ROG Phone 2","ROG Phone 3","ROG Phone 5","ROG Phone 6","ROG Phone 7"
+    "ROG Phone 2","ROG Phone 3","ROG Phone 5","ROG Phone 6","ROG Phone 7","ROG Phone 8"
   ],
 
   LG: [
@@ -76,17 +77,17 @@ const celulares = {
 
   Nokia: [
     "Nokia 2","Nokia 3","Nokia 5","Nokia 6","Nokia 7",
-    "Nokia G10","Nokia G20","Nokia G21"
+    "Nokia G10","Nokia G20","Nokia G21","Nokia G22"
   ],
 
   Infinix: [
-    "Infinix Hot 8","Infinix Hot 10","Infinix Hot 11","Infinix Hot 12",
+    "Infinix Hot 8","Infinix Hot 10","Infinix Hot 11","Infinix Hot 12","Infinix Hot 30",
     "Infinix Note 10","Infinix Note 12","Infinix Note 30"
   ],
 
   Tecno: [
     "Tecno Spark 6","Tecno Spark 8","Tecno Spark 10",
-    "Tecno Pova 3","Tecno Pova 5"
+    "Tecno Pova 3","Tecno Pova 5","Tecno Pova 6"
   ],
 
   Positivo: [
@@ -127,10 +128,12 @@ const brand = document.getElementById("brand");
 const model = document.getElementById("model");
 const resultado = document.getElementById("resultado");
 
+// Carregar marcas
 for (let b in celulares) {
   brand.innerHTML += `<option value="${b}">${b}</option>`;
 }
 
+// Carregar modelos
 brand.onchange = () => {
   model.innerHTML = "<option value=''>Selecione o modelo</option>";
   celulares[brand.value].forEach(m => {
@@ -138,6 +141,7 @@ brand.onchange = () => {
   });
 };
 
+// Gerar configuração
 function gerar() {
   if (!brand.value || !model.value) {
     resultado.innerHTML = "⚠️ Selecione marca e modelo.";
