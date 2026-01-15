@@ -154,7 +154,7 @@ function gerar() {
     Mira 2x: ${sens - 22}<br>
     Mira 4x: ${sens - 38}<br>
     AWM: ${sens - 55}<br><br>
-    ${dpi ? `📐 DPI recomendada: ${dpi}` : "🍎 iPhone não utiliza DPI"}<br><br>
+    ${dpi ? `📐 DPI recomendada: ${dpi}` : "🍎 iPhone sem DPI"}<br><br>
     📱 <b>${model.value}</b>
   `;
 }
