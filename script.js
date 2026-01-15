@@ -60,7 +60,7 @@ const celulares = {
   Realme: [
     "Realme C11","Realme C25","Realme C35","Realme C55","Realme C60x,
     "Realme 8","Realme 9","Realme 10",
-    "Realme GT","Realme GT Neo","Realme GT Neo 2","Realme GT Neo 3"
+    "Realme GT","Realme gT Neo","Realme GT Neo 2","Realme GT Neo 3"
   ],
 
   Asus: [
