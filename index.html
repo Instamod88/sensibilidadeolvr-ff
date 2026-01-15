@@ -1,28 +1,202 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Gerador FF Pro</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>SENSI NÍVEL XIT👹</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #222 0%, #000 70%);
+  color: #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  width: 95%;
+  max-width: 420px;
+  background: rgba(30,30,30,0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 0 40px rgba(0,0,0,.9);
+  animation: fade 0.6s ease;
+}
+
+@keyframes fade {
+  from { opacity:0; transform:scale(.96); }
+  to { opacity:1; transform:scale(1); }
+}
+
+h1 {
+  text-align: center;
+  font-size: 20px;
+  color: #d8d8d8;
+  margin-bottom: 15px;
+}
+
+select, button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+}
+
+select {
+  background: #111;
+  color: #fff;
+}
+
+button {
+  background: linear-gradient(135deg,#777,#ccc);
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+.resultado {
+  margin-top: 15px;
+  background: rgba(0,0,0,.6);
+  border-radius: 12px;
+  padding: 15px;
+  font-size: 15px;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.footer a {
+  color: #aaa;
+  text-decoration: none;
+  margin: 0 5px;
+}
+</style>
 </head>
+
 <body>
 
-<h2>SENSI NIVEL XIT👹</h2>
+<div class="container">
+  <h1>🎯 Gerador Profissional de Sensibilidade</h1>
 
-<select id="brand">
-  <option value="">Selecione a marca</option>
-</select>
+  <select id="brand">
+    <option value="">Selecione a marca</option>
+  </select>
 
-<input type="text" id="search" placeholder="Pesquisar modelo">
+  <select id="model">
+    <option value="">Selecione o modelo</option>
+  </select>
 
-<select id="model">
-  <option value="">Selecione o modelo</option>
-</select>
+  <button onclick="gerar()">GERAR CONFIGURAÇÃO</button>
 
-<button id="btn">Gerar</button>
+  <div class="resultado" id="resultado">Selecione um dispositivo</div>
 
-<div id="resultado"></div>
+  <div class="footer">
+    <a href="https://instagram.com/Oliveira.2ss" target="_blank">Instagram</a> |
+    <a href="https://tiktok.com/@Oliveira.2ss" target="_blank">TikTok</a>
+  </div>
+</div>
 
-<script src="script.js"></script>
+<audio id="click">
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_2e7d5c0c93.mp3">
+</audio>
+
+<script>
+// =======================================
+// BASE GIGANTE DE DISPOSITIVOS
+// =======================================
+
+const celulares = {
+ Apple: ["iPhone 6","6s","7","8","X","XR","XS","11","11 Pro","12","12 Pro","13","13 Pro","14","14 Pro","15","15 Pro","16","16 Pro"],
+ Samsung: ["Galaxy A01","A02","A03","A05","A06","A10","A11","A12","A13","A14","A15","A20","A21","A22","A23","A24","A25","A30","A31","A32","A33","A34","A35","A50","A51","A52","A53","A54","A55","S20","S21","S22","S23","S24","S25"],
+ Xiaomi: ["Redmi 7","8","9","10","11","12","Note 8","Note 9","Note 10","Note 11","Note 12","Poco X3","X4","X5","F3","F4","F5"],
+ Motorola: ["Moto E6","E7","E13","G7","G8","G9","G10","G20","G30","G40","G50","G60","Edge 20","Edge 30","Edge 40"],
+ Vivo: ["Y11","Y12","Y20","Y21","Y30","Y35","V25","V27","V29"],
+ Oppo: ["A5 4G","A12","A15","A31","A54","A78","Reno 5","Reno 6","Reno 8"],
+ Realme: ["C11","C25","C35","C55","60x","8","9","10","GT","GT Neo"],
+ Asus: ["Zenfone 5","6","7","8","9","10","ROG Phone 5","6","7"],
+ LG: ["K10","K11","K12","G6","G7","G8","V30","V40","V50"],
+ Nokia: ["3","5","6","7","G10","G20","G21"],
+ Infinix: ["Hot 8","Hot 10","Hot 11","Hot 12","Note 10","Note 12","Note 30"],
+ Tecno: ["Spark 6","Spark 8","Spark 10","Pova 3","Pova 5"],
+ Positivo: ["Twist","Twist 2","Twist 3","S650","S670","S680"],
+ Multilaser: ["E Lite","E Pro","F Pro"]
+};
+
+// =======================================
+// ELEMENTOS
+// =======================================
+
+const brand = document.getElementById("brand");
+const model = document.getElementById("model");
+const resultado = document.getElementById("resultado");
+const click = document.getElementById("click");
+
+// =======================================
+// POPULAR MARCAS
+// =======================================
+
+for (let b in celulares) {
+  brand.innerHTML += `<option value="${b}">${b}</option>`;
+}
+
+brand.onchange = () => {
+  model.innerHTML = `<option value="">Selecione o modelo</option>`;
+  celulares[brand.value].forEach(m => {
+    model.innerHTML += `<option value="${m}">${m}</option>`;
+  });
+};
+
+// =======================================
+// FUNÇÕES
+// =======================================
+
+function gerarNumero(txt, min, max) {
+  let h = 0;
+  for (let i=0;i<txt.length;i++) h += txt.charCodeAt(i);
+  return min + (h % (max - min));
+}
+
+function gerar() {
+  if (!brand.value || !model.value) {
+    resultado.innerHTML = "⚠️ Escolha marca e modelo";
+    return;
+  }
+
+  click.play();
+
+  const base = gerarNumero(model.value,160,190);
+  const dpi = brand.value === "Apple" ? null : gerarNumero(model.value,420,520);
+
+  resultado.innerHTML = `
+  <b>CONFIGURAÇÃO IDEAL</b><br><br>
+  Geral: ${base}<br>
+  Red Dot: ${base-8}<br>
+  2x: ${base-18}<br>
+  4x: ${base-32}<br>
+  AWM: ${base-50}<br><br>
+  ${dpi ? "DPI: "+dpi : "iPhone não usa DPI"}<br><br>
+  📱 ${brand.value} ${model.value}
+  `;
+}
+</script>
+
 </body>
 </html>
