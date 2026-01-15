@@ -1,5 +1,5 @@
 // ===================================================
-// BASE PROFISSIONAL COMPLETA DE DISPOSITIVOS (2025)
+// BASE GIGANTE PROFISSIONAL DE DISPOSITIVOS
 // ===================================================
 
 const celulares = {
@@ -23,10 +23,7 @@ const celulares = {
   ],
 
   Samsung: [
-    // Linha J
     "Galaxy J1","Galaxy J2","Galaxy J3","Galaxy J4","Galaxy J5","Galaxy J6","Galaxy J7","Galaxy J8",
-
-    // Linha A
     "Galaxy A01","Galaxy A02","Galaxy A02s","Galaxy A03","Galaxy A03s",
     "Galaxy A04","Galaxy A05","Galaxy A05s","Galaxy A06",
     "Galaxy A10","Galaxy A10s","Galaxy A11","Galaxy A12","Galaxy A12s",
@@ -41,8 +38,6 @@ const celulares = {
     "Galaxy A50","Galaxy A50s","Galaxy A51","Galaxy A51 5G",
     "Galaxy A52","Galaxy A52 5G","Galaxy A53","Galaxy A54","Galaxy A55",
     "Galaxy A60","Galaxy A70","Galaxy A71","Galaxy A72","Galaxy A73",
-
-    // Linha S
     "Galaxy S8","Galaxy S8+","Galaxy S9","Galaxy S9+",
     "Galaxy S10","Galaxy S10e","Galaxy S10+",
     "Galaxy S20","Galaxy S20+","Galaxy S20 Ultra",
@@ -54,7 +49,6 @@ const celulares = {
   ],
 
   Xiaomi: [
-    // Xiaomi / Mi
     "Xiaomi Mi 8","Xiaomi Mi 9","Xiaomi Mi 9T",
     "Xiaomi Mi 10","Xiaomi Mi 10T",
     "Xiaomi Mi 11","Xiaomi Mi 11 Lite",
@@ -62,8 +56,6 @@ const celulares = {
     "Xiaomi 13","Xiaomi 13 Pro",
     "Xiaomi 14","Xiaomi 14 Pro","Xiaomi 14 Ultra",
     "Xiaomi 15","Xiaomi 15 Pro","Xiaomi 15 Ultra",
-
-    // Redmi
     "Redmi 7","Redmi 8","Redmi 9","Redmi 9A","Redmi 9C","Redmi 9T",
     "Redmi 10","Redmi 10A","Redmi 10C",
     "Redmi 11","Redmi 12","Redmi 12C",
@@ -71,8 +63,6 @@ const celulares = {
     "Redmi Note 10","Redmi Note 10S","Redmi Note 10 Pro",
     "Redmi Note 11","Redmi Note 11S","Redmi Note 11 Pro",
     "Redmi Note 12","Redmi Note 12 Pro","Redmi Note 12 Pro+",
-
-    // POCO
     "Poco X3","Poco X3 Pro",
     "Poco X4","Poco X4 Pro",
     "Poco X5","Poco X5 Pro",
@@ -140,23 +130,65 @@ const celulares = {
 };
 
 // ===================================================
-// FUNÇÕES (SEM BUG)
+// LÓGICA (SEM BUG)
 // ===================================================
 
-function hash(texto) {
+const brand = document.getElementById("brand");
+const model = document.getElementById("model");
+const resultado = document.getElementById("resultado");
+const search = document.getElementById("search");
+
+for (let b in celulares) {
+  brand.innerHTML += `<option value="${b}">${b}</option>`;
+}
+
+brand.onchange = () => {
+  model.innerHTML = "<option value=''>Selecione o modelo</option>";
+  search.value = "";
+
+  celulares[brand.value].forEach(m => {
+    model.innerHTML += `<option value="${m}">${m}</option>`;
+  });
+};
+
+search.addEventListener("input", () => {
+  const texto = search.value.toLowerCase();
+  model.innerHTML = "<option value=''>Selecione o modelo</option>";
+
+  if (!brand.value) return;
+
+  celulares[brand.value].forEach(m => {
+    if (m.toLowerCase().includes(texto)) {
+      model.innerHTML += `<option value="${m}">${m}</option>`;
+    }
+  });
+});
+
+function hash(t) {
   let h = 0;
-  for (let i = 0; i < texto.length; i++) {
-    h = (h << 5) - h + texto.charCodeAt(i);
+  for (let i = 0; i < t.length; i++) {
+    h = (h << 5) - h + t.charCodeAt(i);
     h |= 0;
   }
   return Math.abs(h);
 }
 
-function gerarSensibilidade(modelo) {
-  return 160 + (hash(modelo) % 25);
-}
+function gerar() {
+  if (!brand.value || !model.value) {
+    resultado.innerHTML = "Selecione a marca e o modelo.";
+    return;
+  }
 
-function gerarDPI(modelo, marca) {
-  if (marca === "Apple") return null;
-  return 420 + (hash(modelo) % 80);
+  const base = 160 + (hash(model.value) % 25);
+  const dpi = brand.value === "Apple" ? null : 420 + (hash(model.value) % 80);
+
+  resultado.innerHTML = `
+    🎯 <b>${model.value}</b><br><br>
+    Geral: ${base}<br>
+    Red Dot: ${base - 8}<br>
+    Mira 2x: ${base - 20}<br>
+    Mira 4x: ${base - 35}<br>
+    AWM: ${base - 55}<br><br>
+    ${dpi ? "📐 DPI recomendada: " + dpi : "🍎 iPhone não usa DPI"}
+  `;
 }
