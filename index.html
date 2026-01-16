@@ -293,6 +293,7 @@ const celulares = {
   ]
 };
 
+
 const brandEl = document.getElementById("brand");
 const modelEl = document.getElementById("model");
 const resultadoEl = document.getElementById("resultado");
@@ -324,7 +325,10 @@ function gerar() {
   }
 
   const base = 160 + (hash(modelEl.value) % 25);
-  const dpi = brandEl.value === "Apple" ? null : 400 + (hash(modelEl.value) % 80);
+
+  // Novas faixas de DPI
+  const dpiMedia = 400 + Math.floor(Math.random() * 101); // 400 a 500
+  const dpiAlta = 600 + Math.floor(Math.random() * 201); // 600 a 800
 
   resultadoEl.innerHTML = `
     🎯 <b>${modelEl.value}</b><br><br>
@@ -333,7 +337,8 @@ function gerar() {
     2x: ${base - 20}<br>
     4x: ${base - 35}<br>
     AWM: ${base - 55}<br><br>
-    ${dpi ? `📐 DPI: ${dpi}` : "🍎 iPhone não usa DPI"}
+    📏 DPI Média: ${dpiMedia}<br>
+    📏 DPI Alta: ${dpiAlta}
   `;
 }
 </script>
