@@ -297,7 +297,7 @@ const celulares = {
     "Zenfone 5","Zenfone 6","Zenfone 7","Zenfone 8","Zenfone 9","Zenfone 10",
     "ROG Phone 2","ROG Phone 3","ROG Phone 5","ROG Phone 6","ROG Phone 7"
   ]
-}
+};
 
 const brandEl = document.getElementById("brand");
 const modelEl = document.getElementById("model");
@@ -329,21 +329,20 @@ function gerar() {
     return;
   }
 
-  const base = 160 + (hash(modelEl.value) % 25);
+ click.play();
 
-  // Novas faixas de DPI
-  const dpiMedia = 400 + Math.floor(Math.random() * 101); // 400 a 500
-  const dpiAlta = 600 + Math.floor(Math.random() * 201); // 600 a 800
+  const base = gerarNumero(model.value,160,190);
+  const dpi = brand.value === "Apple" ? null : gerarNumero(model.value,420,520);
 
-  resultadoEl.innerHTML = `
-    🎯 <b>${modelEl.value}</b><br><br>
-    Geral: ${base}<br>
-    Red Dot: ${base - 8}<br>
-    2x: ${base - 20}<br>
-    4x: ${base - 35}<br>
-    AWM: ${base - 55}<br><br>
-    📏 DPI Média: ${dpiMedia}<br>
-    📏 DPI Alta: ${dpiAlta}
+  resultado.innerHTML = `
+  <b>CONFIGURAÇÃO IDEAL</b><br><br>
+  Geral: ${base}<br>
+  Red Dot: ${base-8}<br>
+  2x: ${base-18}<br>
+  4x: ${base-32}<br>
+  AWM: ${base-50}<br><br>
+  ${dpi ? "DPI: "+dpi : "iPhone não usa DPI"}<br><br>
+  📱 ${brand.value} ${model.value}
   `;
 }
 </script>
